@@ -432,76 +432,6 @@
             color: var(--text-light);
         }
 
-        /* Review Form Section */
-        .add-review {
-            background-color: var(--light-color);
-            background-image: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
-        }
-
-        .review-form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--white);
-            border-radius: 0;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--primary-color);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-family: 'Cinzel', serif;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--primary-color);
-            border-radius: 0;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: var(--transition);
-            background-color: rgba(245, 245, 220, 0.5);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--secondary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .rating-stars {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .rating-stars i {
-            font-size: 1.5rem;
-            color: #ddd;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .rating-stars i.fas {
-            color: var(--primary-color);
-        }
-
         /* Contact Section */
         .contact-container {
             display: grid;
@@ -551,6 +481,54 @@
         .contact-form.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-family: 'Cinzel', serif;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--primary-color);
+            border-radius: 0;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: rgba(245, 245, 220, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Result Message */
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            border: 1px dashed var(--primary-color);
         }
 
         /* Footer */
@@ -619,16 +597,6 @@
             border-top: 1px solid rgba(255, 250, 240, 0.1);
         }
 
-        /* Result Message */
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary-color);
-            border: 1px dashed var(--primary-color);
-        }
-
         /* Mobile Styles */
         @media (max-width: 768px) {
             .mobile-menu {
@@ -672,10 +640,6 @@
 
             .contact-container {
                 grid-template-columns: 1fr;
-            }
-
-            .review-form-container {
-                padding: 20px;
             }
         }
 
@@ -862,8 +826,6 @@
         </div>
     </section>
 
-
-
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title">
@@ -970,7 +932,9 @@
                 <a href="https://wa.me/9719505554"><i class="fab fa-whatsapp"></i></a>
             </div>
             <div class="copyright">
-                &copy; 2023 AstroDuniya - Manish Tripathi. All Rights Reserved.
+                &copy; 2025 AstroDuniya - Manish Tripathi. All Rights Reserved.
+                <br> Created By- Chandrakant                 <a href="https://www.instagram.com/chandrakant_here/?hl=="><i class="fab fa-instagram"></i></a>
+
             </div>
         </div>
     </footer>
@@ -1017,69 +981,6 @@
         // Check on scroll
         window.addEventListener('scroll', fadeInOnScroll);
         
-        // Review Form Submission
-        const reviewForm = document.getElementById('review-form');
-        const reviewResult = document.getElementById('review-result');
-        const ratingStars = document.querySelectorAll('.rating-stars i');
-
-        ratingStars.forEach(star => {
-            star.addEventListener('click', () => {
-                const rating = parseInt(star.getAttribute('data-rating'));
-                document.getElementById('review-rating').value = rating;
-                
-                ratingStars.forEach((s, index) => {
-                    if (index < rating) {
-                        s.classList.remove('far');
-                        s.classList.add('fas');
-                    } else {
-                        s.classList.remove('fas');
-                        s.classList.add('far');
-                    }
-                });
-            });
-        });
-
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(reviewForm);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-            reviewResult.innerHTML = "Please wait...";
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-            .then(async (response) => {
-                let json = await response.json();
-                if (response.status == 200) {
-                    reviewResult.innerHTML = "Thank you for your review!";
-                } else {
-                    console.log(response);
-                    reviewResult.innerHTML = json.message;
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                reviewResult.innerHTML = "Something went wrong!";
-            })
-            .then(function() {
-                reviewForm.reset();
-                ratingStars.forEach(star => {
-                    star.classList.remove('fas');
-                    star.classList.add('far');
-                });
-                document.getElementById('review-rating').value = '0';
-                setTimeout(() => {
-                    reviewResult.style.display = "none";
-                }, 5000);
-            });
-        });
-
         // Consultation Form Submission
         const consultationForm = document.getElementById('consultation-form');
         const result = document.getElementById('result');
